@@ -19,7 +19,10 @@ import java.util.UUID
 class CategoryExerciseController(
     private val getDueExercisesUseCase: GetDueExercisesUseCase,
 ) {
-    @Operation(summary = "Get due exercises", description = "Retrieves exercises that are due for review in a specific category")
+    @Operation(
+        summary = "Get due exercises",
+        description = "Retrieves exercises that are due for review in a specific category"
+    )
     @GetMapping("/{categoryId}/exercises/due")
     fun getDueExercises(
         @RequestHeader("x-user-id") userId: UUID,

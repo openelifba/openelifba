@@ -22,7 +22,10 @@ import java.util.UUID
 class MemoryController(
     private val updateMemoryUseCase: UpdateMemoryUseCase,
 ) {
-    @Operation(summary = "Update memory", description = "Records a review attempt for an exercise and updates SRS parameters")
+    @Operation(
+        summary = "Update memory",
+        description = "Records a review attempt for an exercise and updates SRS parameters"
+    )
     @PostMapping
     fun updateMemory(
         @RequestHeader("x-user-id") userId: UUID,

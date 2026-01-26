@@ -17,7 +17,10 @@ import java.util.UUID
 class CategoryController(
     private val getCategoriesUseCase: GetCategoriesUseCase,
 ) {
-    @Operation(summary = "Get all categories", description = "Retrieves a list of all exercise categories with user-specific statistics")
+    @Operation(
+        summary = "Get all categories",
+        description = "Retrieves a list of all exercise categories with user-specific statistics"
+    )
     @GetMapping
     fun getCategories(
         @RequestHeader("x-user-id") userId: UUID,
