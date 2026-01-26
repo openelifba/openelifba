@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    # URL will be provided by TestContainers
+    username: test
+    password: test
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  
+  # Speed up tests by disabling some features
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.wordiam.openelifba: DEBUG
+    org.springframework.web: INFO
+    org.jooq: DEBUG

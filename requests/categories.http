@@ -1,0 +1,4 @@
+GET {{URL}}/api/categories
+#Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+X-User-Id: 8872fe79-1f7c-4b59-8b0e-5609955b9ee7

@@ -1,0 +1,26 @@
+exercise:
+  - id: "660e8400-e29b-41d4-a716-446655440001"
+    value: "Alif"
+    audio_url: "/audio/alif.mp3"
+    rank: 1
+    category_id: "550e8400-e29b-41d4-a716-446655440001"
+  - id: "660e8400-e29b-41d4-a716-446655440002"
+    value: "Ba"
+    audio_url: "/audio/ba.mp3"
+    rank: 2
+    category_id: "550e8400-e29b-41d4-a716-446655440001"
+  - id: "660e8400-e29b-41d4-a716-446655440003"
+    value: "Ta"
+    audio_url: "/audio/ta.mp3"
+    rank: 3
+    category_id: "550e8400-e29b-41d4-a716-446655440001"
+  - id: "660e8400-e29b-41d4-a716-446655440004"
+    value: "One"
+    audio_url: "/audio/one.mp3"
+    rank: 1
+    category_id: "550e8400-e29b-41d4-a716-446655440002"
+  - id: "660e8400-e29b-41d4-a716-446655440005"
+    value: "Two"
+    audio_url: "/audio/two.mp3"
+    rank: 2
+    category_id: "550e8400-e29b-41d4-a716-446655440002"

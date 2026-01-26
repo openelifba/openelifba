@@ -1,0 +1,79 @@
+version: 2
+updates:
+  # Gradle dependencies - Single PR for all updates
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 1
+    groups:
+      # Single group for all dependencies
+      all-dependencies:
+        patterns:
+          # Spring Boot and related Spring libraries
+          - "org.springframework*"
+          - "org.springframework.boot*"
+          - "org.springframework.data*"
+          - "org.springframework.security*"
+          # Database and persistence
+          - "org.jooq*"
+          - "org.flywaydb*"
+          - "org.postgresql*"
+          - "com.h2database*"
+          - "org.testcontainers*"
+          # Testing frameworks
+          - "org.junit*"
+          - "org.mockito*"
+          - "io.mockk*"
+          - "org.assertj*"
+          - "org.hamcrest*"
+          # Jackson JSON processing
+          - "com.fasterxml.jackson*"
+          # Kotlin and JVM
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.kotlinx*"
+          # Build and code quality tools
+          - "org.gradle*"
+          - "io.gitlab.arturbosch.detekt*"
+          - "org.jlleitschuh.gradle.ktlint*"
+          - "org.jooq.jooq-codegen-gradle*"
+          # Catch all other dependencies
+          - "*"
+
+    # Ignore specific updates that might cause issues
+    ignore:
+      # Ignore major version updates for critical dependencies
+      - dependency-name: "org.springframework.boot*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.jetbrains.kotlin*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.jooq*"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actions workflows - Single PR
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 1
+    groups:
+      all-actions:
+        patterns:
+          - "*"
+
+  # Docker dependencies - Single PR
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 1
+    groups:
+      all-docker:
+        patterns:
+          - "*"
