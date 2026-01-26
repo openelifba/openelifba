@@ -24,7 +24,7 @@ class MemoryController(
 ) {
     @Operation(
         summary = "Update memory",
-        description = "Records a review attempt for an exercise and updates SRS parameters"
+        description = "Records a review attempt for an exercise and updates SRS parameters",
     )
     @PostMapping
     fun updateMemory(

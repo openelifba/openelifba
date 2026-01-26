@@ -9,10 +9,9 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class OpenApiConfig {
-
     @Bean
-    fun openApi(): OpenAPI {
-        return OpenAPI()
+    fun openApi(): OpenAPI =
+        OpenAPI()
             .info(
                 Info()
                     .title("OpenElifba API")
@@ -21,13 +20,11 @@ class OpenApiConfig {
                     .contact(
                         Contact()
                             .name("OpenElifba Team")
-                            .url("https://github.com/wordiam/openelifba")
-                    )
-                    .license(
+                            .url("https://github.com/wordiam/openelifba"),
+                    ).license(
                         License()
                             .name("MIT License")
-                            .url("https://opensource.org/licenses/MIT")
-                    )
+                            .url("https://opensource.org/licenses/MIT"),
+                    ),
             )
-    }
 }

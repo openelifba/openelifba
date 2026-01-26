@@ -21,7 +21,7 @@ class CategoryExerciseController(
 ) {
     @Operation(
         summary = "Get due exercises",
-        description = "Retrieves exercises that are due for review in a specific category"
+        description = "Retrieves exercises that are due for review in a specific category",
     )
     @GetMapping("/{categoryId}/exercises/due")
     fun getDueExercises(

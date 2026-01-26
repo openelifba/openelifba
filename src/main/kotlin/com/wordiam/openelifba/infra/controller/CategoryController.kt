@@ -19,7 +19,7 @@ class CategoryController(
 ) {
     @Operation(
         summary = "Get all categories",
-        description = "Retrieves a list of all exercise categories with user-specific statistics"
+        description = "Retrieves a list of all exercise categories with user-specific statistics",
     )
     @GetMapping
     fun getCategories(

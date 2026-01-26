@@ -11,13 +11,12 @@ import org.springframework.web.util.ContentCachingResponseWrapper
 
 @Component
 class RequestLoggingFilter : OncePerRequestFilter() {
-
     private val log = LoggerFactory.getLogger(javaClass)
 
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        filterChain: FilterChain
+        filterChain: FilterChain,
     ) {
         val requestWrapper = ContentCachingRequestWrapper(request)
         val responseWrapper = ContentCachingResponseWrapper(response)
@@ -38,14 +37,17 @@ class RequestLoggingFilter : OncePerRequestFilter() {
                 response.status,
                 duration,
                 preview(requestBody),
-                preview(responseBody)
+                preview(responseBody),
             )
-            
+
             responseWrapper.copyBodyToResponse()
         }
     }
-    
-    private fun preview(content: String, maxLength: Int = 100): String {
+
+    private fun preview(
+        content: String,
+        maxLength: Int = 100,
+    ): String {
         if (content.isBlank()) return ""
         val normalized = content.replace(Regex("\\s+"), " ")
         return if (normalized.length > maxLength) "${normalized.take(maxLength)}..." else normalized

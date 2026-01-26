@@ -14,10 +14,9 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 class MemoryTest {
-
     private val clock = mockk<Clock>()
     private val now = LocalDateTime.parse("2024-01-01T10:00:00")
-    
+
     init {
         every { clock.now() } returns now
     }
@@ -28,14 +27,15 @@ class MemoryTest {
 
     @Test
     fun `create should initialize memory with default values`() {
-        val memory = Memory.create(
-            exerciseId = exerciseId,
-            categoryId = categoryId,
-            userId = userId,
-            success = true,
-            responseTime = Duration.ofSeconds(5),
-            clock = clock
-        )
+        val memory =
+            Memory.create(
+                exerciseId = exerciseId,
+                categoryId = categoryId,
+                userId = userId,
+                success = true,
+                responseTime = Duration.ofSeconds(5),
+                clock = clock,
+            )
 
         assertEquals(exerciseId, memory.exerciseId)
         assertEquals(categoryId, memory.categoryId)
@@ -49,21 +49,23 @@ class MemoryTest {
 
     @Test
     fun `updateWithResult should increase ease factor and interval on fast success`() {
-        val initialMemory = Memory.create(
-            exerciseId = exerciseId,
-            categoryId = categoryId,
-            userId = userId,
-            success = true,
-            responseTime = Duration.ofSeconds(5),
-            clock = clock
-        )
+        val initialMemory =
+            Memory.create(
+                exerciseId = exerciseId,
+                categoryId = categoryId,
+                userId = userId,
+                success = true,
+                responseTime = Duration.ofSeconds(5),
+                clock = clock,
+            )
 
         // Fast response (< 3s)
-        val updatedMemory = initialMemory.updateWithResult(
-            success = true,
-            responseTime = Duration.ofSeconds(2),
-            clock = clock
-        )
+        val updatedMemory =
+            initialMemory.updateWithResult(
+                success = true,
+                responseTime = Duration.ofSeconds(2),
+                clock = clock,
+            )
 
         assertTrue(updatedMemory.easeFactor > initialMemory.easeFactor)
         assertTrue(updatedMemory.interval > initialMemory.interval)
@@ -72,20 +74,22 @@ class MemoryTest {
 
     @Test
     fun `updateWithResult should decrease ease factor and reset interval on failure`() {
-        val initialMemory = Memory.create(
-            exerciseId = exerciseId,
-            categoryId = categoryId,
-            userId = userId,
-            success = true,
-            responseTime = Duration.ofSeconds(5),
-            clock = clock
-        )
+        val initialMemory =
+            Memory.create(
+                exerciseId = exerciseId,
+                categoryId = categoryId,
+                userId = userId,
+                success = true,
+                responseTime = Duration.ofSeconds(5),
+                clock = clock,
+            )
 
-        val updatedMemory = initialMemory.updateWithResult(
-            success = false,
-            responseTime = Duration.ofSeconds(5),
-            clock = clock
-        )
+        val updatedMemory =
+            initialMemory.updateWithResult(
+                success = false,
+                responseTime = Duration.ofSeconds(5),
+                clock = clock,
+            )
 
         assertTrue(updatedMemory.easeFactor < initialMemory.easeFactor)
         assertEquals(Duration.ofHours(1), updatedMemory.interval) // Resets to initial
@@ -94,20 +98,22 @@ class MemoryTest {
 
     @Test
     fun `updateWithResult should simply increase streak and stats on normal success`() {
-        val initialMemory = Memory.create(
-            exerciseId = exerciseId,
-            categoryId = categoryId,
-            userId = userId,
-            success = true,
-            responseTime = Duration.ofSeconds(5),
-            clock = clock
-        )
+        val initialMemory =
+            Memory.create(
+                exerciseId = exerciseId,
+                categoryId = categoryId,
+                userId = userId,
+                success = true,
+                responseTime = Duration.ofSeconds(5),
+                clock = clock,
+            )
 
-        val updatedMemory = initialMemory.updateWithResult(
-            success = true,
-            responseTime = Duration.ofSeconds(5), // Normal speed (3-10s)
-            clock = clock
-        )
+        val updatedMemory =
+            initialMemory.updateWithResult(
+                success = true,
+                responseTime = Duration.ofSeconds(5), // Normal speed (3-10s)
+                clock = clock,
+            )
 
         assertEquals(2, updatedMemory.streak)
         assertEquals(2, updatedMemory.correctCount)

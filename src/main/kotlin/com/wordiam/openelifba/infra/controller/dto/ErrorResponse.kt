@@ -7,5 +7,5 @@ data class ErrorResponse(
     val error: String,
     val message: String,
     val timestamp: String = LocalDateTime.now().toString(),
-    val path: String
+    val path: String,
 )

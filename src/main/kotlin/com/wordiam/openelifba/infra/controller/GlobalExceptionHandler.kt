@@ -11,41 +11,50 @@ import org.springframework.web.context.request.WebRequest
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
-
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @ExceptionHandler(DomainException::class)
-    fun handleDomainException(ex: DomainException, request: WebRequest): ResponseEntity<ErrorResponse> {
+    fun handleDomainException(
+        ex: DomainException,
+        request: WebRequest,
+    ): ResponseEntity<ErrorResponse> {
         logger.warn("Domain exception occurred: {}", ex.message)
-        
-        val status = when (ex) {
-            is DomainException.CategoryNotFoundException,
-            is DomainException.ExerciseNotFoundException -> HttpStatus.NOT_FOUND
-            is DomainException.InvalidOperationException -> HttpStatus.BAD_REQUEST
-        }
-        
-        val errorResponse = ErrorResponse(
-            status = status.value(),
-            error = status.reasonPhrase,
-            message = ex.message ?: "Domain error",
-            path = request.getDescription(false).replace("uri=", "")
-        )
-        
+
+        val status =
+            when (ex) {
+                is DomainException.CategoryNotFoundException,
+                is DomainException.ExerciseNotFoundException,
+                -> HttpStatus.NOT_FOUND
+                is DomainException.InvalidOperationException -> HttpStatus.BAD_REQUEST
+            }
+
+        val errorResponse =
+            ErrorResponse(
+                status = status.value(),
+                error = status.reasonPhrase,
+                message = ex.message ?: "Domain error",
+                path = request.getDescription(false).replace("uri=", ""),
+            )
+
         return ResponseEntity(errorResponse, status)
     }
 
     @ExceptionHandler(Exception::class)
-    fun handleGlobalException(ex: Exception, request: WebRequest): ResponseEntity<ErrorResponse> {
+    fun handleGlobalException(
+        ex: Exception,
+        request: WebRequest,
+    ): ResponseEntity<ErrorResponse> {
         logger.error("Unexpected error occurred", ex)
-        
+
         val status = HttpStatus.INTERNAL_SERVER_ERROR
-        val errorResponse = ErrorResponse(
-            status = status.value(),
-            error = status.reasonPhrase,
-            message = "An unexpected error occurred",
-            path = request.getDescription(false).replace("uri=", "")
-        )
-        
+        val errorResponse =
+            ErrorResponse(
+                status = status.value(),
+                error = status.reasonPhrase,
+                message = "An unexpected error occurred",
+                path = request.getDescription(false).replace("uri=", ""),
+            )
+
         return ResponseEntity(errorResponse, status)
     }
 }
