@@ -1,7 +1,7 @@
 package com.wordiam.openelifba.infra.controller.dto
 
 import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Positive
+import jakarta.validation.constraints.PositiveOrZero
 import java.util.UUID
 
 data class UpdateMemoryDto(
@@ -11,6 +11,6 @@ data class UpdateMemoryDto(
     val exerciseId: UUID,
     @field:NotNull
     val success: Boolean,
-    @field:Positive
+    @field:PositiveOrZero
     val responseTimeMillis: Long,
 )

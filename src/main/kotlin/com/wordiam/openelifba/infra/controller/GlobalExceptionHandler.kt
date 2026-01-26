@@ -5,9 +5,12 @@ import com.wordiam.openelifba.infra.controller.dto.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.web.bind.MissingRequestHeaderException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
@@ -33,6 +36,63 @@ class GlobalExceptionHandler {
                 status = status.value(),
                 error = status.reasonPhrase,
                 message = ex.message ?: "Domain error",
+                path = request.getDescription(false).replace("uri=", ""),
+            )
+
+        return ResponseEntity(errorResponse, status)
+    }
+
+    @ExceptionHandler(MissingRequestHeaderException::class)
+    fun handleMissingRequestHeader(
+        ex: MissingRequestHeaderException,
+        request: WebRequest,
+    ): ResponseEntity<ErrorResponse> {
+        logger.warn("Missing request header: {}", ex.headerName)
+
+        val status = HttpStatus.BAD_REQUEST
+        val errorResponse =
+            ErrorResponse(
+                status = status.value(),
+                error = status.reasonPhrase,
+                message = "Missing required header: ${ex.headerName}",
+                path = request.getDescription(false).replace("uri=", ""),
+            )
+
+        return ResponseEntity(errorResponse, status)
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException::class)
+    fun handleMethodArgumentTypeMismatch(
+        ex: MethodArgumentTypeMismatchException,
+        request: WebRequest,
+    ): ResponseEntity<ErrorResponse> {
+        logger.warn("Invalid argument type: {}", ex.message)
+
+        val status = HttpStatus.BAD_REQUEST
+        val errorResponse =
+            ErrorResponse(
+                status = status.value(),
+                error = status.reasonPhrase,
+                message = "Invalid value for parameter: ${ex.name}",
+                path = request.getDescription(false).replace("uri=", ""),
+            )
+
+        return ResponseEntity(errorResponse, status)
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    fun handleHttpMessageNotReadable(
+        ex: HttpMessageNotReadableException,
+        request: WebRequest,
+    ): ResponseEntity<ErrorResponse> {
+        logger.warn("Invalid request body: {}", ex.message)
+
+        val status = HttpStatus.BAD_REQUEST
+        val errorResponse =
+            ErrorResponse(
+                status = status.value(),
+                error = status.reasonPhrase,
+                message = "Invalid or missing request body",
                 path = request.getDescription(false).replace("uri=", ""),
             )
 

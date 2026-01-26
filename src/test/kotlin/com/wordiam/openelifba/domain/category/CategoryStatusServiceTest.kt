@@ -87,9 +87,16 @@ class CategoryStatusServiceTest {
         reviewedCount: Int,
         averageResponseTime: Duration = Duration.ofSeconds(5),
         accuracyPercent: Double = 100.0,
-    ) = MemoryStatistic(
-        reviewedExerciseCount = reviewedCount,
-        averageResponseTime = averageResponseTime,
-        accuracyPercent = accuracyPercent,
-    )
+    ): MemoryStatistic {
+        // Calculate correctCount and incorrectCount to achieve desired accuracyPercent
+        val total = 100
+        val correctCount = (accuracyPercent).toInt()
+        val incorrectCount = total - correctCount
+        return MemoryStatistic(
+            reviewedExerciseCount = reviewedCount,
+            averageResponseTime = averageResponseTime,
+            correctCount = correctCount,
+            incorrectCount = incorrectCount,
+        )
+    }
 }

@@ -11,9 +11,7 @@ import com.wordiam.openelifba.domain.user.UserId
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.TestPropertySource
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
@@ -22,9 +20,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.util.UUID
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@TestPropertySource(properties = ["spring.flyway.enabled=false"])
+@WebMvcTest(CategoryController::class)
 class CategoryControllerIntegrationTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
