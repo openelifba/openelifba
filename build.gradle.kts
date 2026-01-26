@@ -2,15 +2,15 @@ import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.5"
+    id("org.springframework.boot") version "3.5.10"
     id("io.spring.dependency-management") version "1.1.7"
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.spring") version "1.9.23"
-    kotlin("plugin.jpa") version "1.9.23"
-    id("nu.studer.jooq") version "8.2.1"
-    id("org.flywaydb.flyway") version "9.22.3"
+    kotlin("jvm") version "2.3.0"
+    kotlin("plugin.spring") version "2.3.0"
+    kotlin("plugin.jpa") version "2.3.0"
+    id("nu.studer.jooq") version "10.2"
+    id("org.flywaydb.flyway") version "11.20.3"
     id("io.gitlab.arturbosch.detekt") version "1.23.8"
-    id("org.jlleitschuh.gradle.ktlint") version "13.0.0"
+    id("org.jlleitschuh.gradle.ktlint") version "14.0.1"
     id("jacoco")
 }
 
@@ -38,7 +38,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.1")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     jooqGenerator("org.postgresql:postgresql")
@@ -50,13 +50,13 @@ dependencies {
     testImplementation("com.github.database-rider:rider-spring:1.44.0")
     testImplementation("org.junit.platform:junit-platform-suite-engine")
     testImplementation("org.flywaydb:flyway-core")
-    testImplementation("io.mockk:mockk:1.14.5")
-    testImplementation("com.ninja-squad:springmockk:4.0.2")
+    testImplementation("io.mockk:mockk:1.14.9")
+    testImplementation("com.ninja-squad:springmockk:5.0.1")
 }
 
 dependencyManagement {
     imports {
-        mavenBom("org.testcontainers:testcontainers-bom:1.21.3")
+        mavenBom("org.testcontainers:testcontainers-bom:2.0.3")
     }
 }
 
