@@ -46,7 +46,8 @@ class JooqScoreboardRepository(
                 .asTable("ranked")
 
         val userIdField = ranked.field("userId", UUID::class.java) ?: error("userId field not found in ranked subquery")
-        val scoreField = ranked.field("score", BigDecimal::class.java) ?: error("score field not found in ranked subquery")
+        val scoreField =
+            ranked.field("score", BigDecimal::class.java) ?: error("score field not found in ranked subquery")
         val rankField = ranked.field("rank", Long::class.java) ?: error("rank field not found in ranked subquery")
 
         return dsl

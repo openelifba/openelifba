@@ -3,7 +3,6 @@ package com.wordiam.openelifba.infra.controller
 import com.ninjasquad.springmockk.MockkBean
 import com.wordiam.openelifba.application.GetScoreboardUseCase
 import com.wordiam.openelifba.domain.score.ScoreEntry
-import com.wordiam.openelifba.domain.time.Clock
 import com.wordiam.openelifba.domain.user.UserId
 import io.mockk.every
 import org.junit.jupiter.api.Test
@@ -19,9 +18,6 @@ import java.util.UUID
 class ScoreboardControllerIntegrationTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
-
-    @MockkBean
-    private lateinit var clock: Clock
 
     @MockkBean
     private lateinit var getScoreboardUseCase: GetScoreboardUseCase
