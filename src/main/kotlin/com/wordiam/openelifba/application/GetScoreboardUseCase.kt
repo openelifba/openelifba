@@ -11,7 +11,7 @@ class GetScoreboardUseCase(
 ) {
     fun execute(
         userId: UserId,
-        limit: Int = 10,
+        limit: Int = DEFAULT_LIMIT,
     ): Scoreboard {
         val topScores = scoreboardFetcher.fetchTopScores(limit)
         val myRank = scoreboardFetcher.fetchUserRank(userId)
@@ -22,4 +22,8 @@ class GetScoreboardUseCase(
         val topScores: List<ScoreEntry>,
         val myRank: ScoreEntry?,
     )
+
+    companion object {
+        private const val DEFAULT_LIMIT = 10
+    }
 }
