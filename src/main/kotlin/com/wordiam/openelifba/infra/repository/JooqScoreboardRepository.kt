@@ -16,7 +16,11 @@ class JooqScoreboardRepository(
 ) : ScoreboardFetcher {
     override fun fetchTopScores(limit: Int): List<ScoreEntry> {
         val score = DSL.sum(MEMORY.CORRECT_COUNT).`as`("score")
-        val rank = DSL.rank().over().orderBy(DSL.sum(MEMORY.CORRECT_COUNT).desc()).`as`("rank")
+        val rank = DSL
+            .rank()
+            .over()
+            .orderBy(DSL.sum(MEMORY.CORRECT_COUNT).desc())
+            .`as`("rank")
 
         return dsl
             .select(MEMORY.USER_ID, score, rank)
@@ -36,7 +40,11 @@ class JooqScoreboardRepository(
     override fun fetchUserRank(userId: UserId): ScoreEntry? {
         val userIdAlias = MEMORY.USER_ID.`as`("userId")
         val scoreAlias = DSL.sum(MEMORY.CORRECT_COUNT).`as`("score")
-        val rankAlias = DSL.rank().over().orderBy(DSL.sum(MEMORY.CORRECT_COUNT).desc()).`as`("rank")
+        val rankAlias = DSL
+            .rank()
+            .over()
+            .orderBy(DSL.sum(MEMORY.CORRECT_COUNT).desc())
+            .`as`("rank")
 
         val ranked =
             dsl
